@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Météo par ville</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <section id="cityForm" class="card">
+        <h2>Instant Weather</h2>
+        <label for="code-postal">Code Postal</label>
+        <input type="text" id="code-postal" placeholder="75000" required />
+
+        <div id="villeBlock" class="hidden">
+          <label for="communeSelect">Ville</label>
+          <select id="communeSelect">
+            <option disabled selected>Choisissez une ville</option>
+          </select>
+        </div>
+
+        <button id="validationButton">Valider</button>
+        <p id="error" class="error-message"></p>
+      </section>
+
+      <section id="weatherInformation" class="card hidden">
+      </section>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/weatherCard.js"></script>
+  </body>
+</html>

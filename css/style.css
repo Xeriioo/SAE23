@@ -1,0 +1,255 @@
+:root {
+  --color-background: #eef2f5;
+  --color-card-bg: #ffffff;
+  --color-primary: #007bff;      
+  --color-primary-hover: #0056b3; 
+  --color-error: #dc3545;         
+  --radius-card: 1rem;           
+  --radius-input: 0.5rem;         
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --font-family-base: 'Segoe UI', sans-serif;
+  --gap-card: 1.5rem;            
+  --gap-elements: 1rem;           
+  --slider-height: 0.4rem;       
+  --slider-thumb-size: 1rem;     
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+}
+
+
+.card {
+  background-color: var(--color-card-bg);
+  padding: var(--gap-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-elements);
+}
+
+
+h2 {
+  font-size: 1.75rem;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #212529;
+  margin-bottom: 0.25rem;
+  display: block;        
+}
+
+
+input,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-input);
+  background-color: #f8f9fa;
+  font-size: 1rem;
+  color: #212529;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input::placeholder {
+  color: #adb5bd;
+}
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+
+#villeBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;  
+  margin-top: 0.5rem;
+}
+
+
+#weatherInformation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+#weatherInformation .weather-card {
+  width: 100%;
+}
+
+.cards-holder {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.days-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.days-slider-container label {
+  font-size: 1rem;
+  color: #212529;
+  white-space: nowrap;
+}
+
+.days-slider-container span.current-days {
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 2rem; 
+  text-align: center;
+}
+
+.days-slider-container input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: var(--slider-height);
+  background: #d1d5db;
+  border-radius: var(--slider-thumb-size);
+  outline: none;
+  transition: background 0.2s ease;
+  flex-shrink: 1;
+}
+
+.days-slider-container input[type="range"]:hover {
+  background: #c0c4c9; 
+}
+
+.days-slider-container input[type="range"]::-webkit-slider-runnable-track {
+  height: var(--slider-height);
+  background: var(--color-primary);
+  border-radius: var(--slider-thumb-size);
+}
+.days-slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background: #ffffff;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  margin-top: calc((var(--slider-height) - var(--slider-thumb-size)) / 2);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.days-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--color-primary);
+}
+
+.days-slider-container input[type="range"]::-moz-range-track {
+  height: var(--slider-height);
+  background: var(--color-primary);
+  border-radius: var(--slider-thumb-size);
+}
+.days-slider-container input[type="range"]::-moz-range-thumb {
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background: #ffffff;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.days-slider-container input[type="range"]::-moz-range-thumb:hover {
+  background: var(--color-primary);
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+.error-message {
+  color: var(--color-error);
+  font-size: 0.9rem;
+  min-height: 1.2rem; 
+  margin-top: -0.5rem;
+}
+
+
+.reloadButton {
+  margin-top: 1rem;
+  background-color: #dc3545;
+  color: #ffffff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-end; 
+}
+.reloadButton:hover {
+  background-color: #c82333;
+}
+
+
+@media (max-width: 360px) {
+  .card {
+    padding: 1rem;
+  }
+  input,
+  select,
+  button {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+  .days-slider-container label,
+  .days-slider-container span.current-days {
+    font-size: 0.9rem;
+  }
+  .days-slider-container input[type="range"] {
+    height: 0.3rem;
+  }
+  .days-slider-container input[type="range"]::-webkit-slider-thumb,
+  .days-slider-container input[type="range"]::-moz-range-thumb {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
