@@ -1,8 +1,9 @@
 async function fetchMeteoByDay(insee, dayIndex) {
   try {
-    const token = "4bba169b3e3365061d39563419ab23e5016c0f838ba282498439c41a00ef1091";
+    const token = "9a33a68d1fdaeff4b6839e46afefa66c6d9db6a496a903d8cab69ad1e1cc8985";
 
-    const url = `https://api.meteo-concept.com/api/forecast/daily/0?token=${token}&insee=${insee}&days=${dayIndex}`;
+    const url = `https://api.meteo-concept.com/api/forecast/daily/${dayIndex}?token=${token}&insee=${insee}`;
+    console.log(url)
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Météo-Concept : status ${response.status}`);
@@ -60,7 +61,7 @@ async function renderForecast(container, insee, days) {
   for (let i = 0; i < days; i++) {
     fetchPromises.push(fetchMeteoByDay(insee, i));
   }
-
+  console.log(fetchPromises)
   let results;
   try {
     results = await Promise.all(fetchPromises);
