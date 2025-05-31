@@ -20,12 +20,42 @@
           </select>
         </div>
 
+        <fieldset id="optionsMeteo" class="options-meteo hidden">
+          <legend>Options à afficher</legend>
+          <div class="options-grid">
+            <label class="option-item">
+              <input type="checkbox" id="chkLatitude" />
+              <span class="option-label">Latitude décimale</span>
+              <span class="toggle-switch"></span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="chkLongitude" />
+              <span class="option-label">Longitude décimale</span>
+              <span class="toggle-switch"></span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="chkPluie" />
+              <span class="option-label">Pluie (mm)</span>
+              <span class="toggle-switch"></span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="chkVentMoyen" />
+              <span class="option-label">Vent moyen (km/h)</span>
+              <span class="toggle-switch"></span>
+            </label>
+            <label class="option-item">
+              <input type="checkbox" id="chkDirVent" />
+              <span class="option-label">Direction du vent (°)</span>
+              <span class="toggle-switch"></span>
+            </label>
+          </div>
+        </fieldset>
+
         <button id="validationButton">Valider</button>
         <p id="error" class="error-message"></p>
       </section>
 
-      <section id="weatherInformation" class="card hidden">
-      </section>
+      <section id="weatherInformation" class="card hidden"></section>
     </div>
 
     <script src="js/app.js"></script>

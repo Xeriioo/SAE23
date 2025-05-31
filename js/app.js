@@ -3,7 +3,12 @@ const communeSelect      = document.getElementById("communeSelect");
 const villeBlock         = document.getElementById("villeBlock");
 const validationButton   = document.getElementById("validationButton");
 const errorElement       = document.getElementById("error");
-
+const optionsMeteo       = document.getElementById("optionsMeteo");
+const chkLatitude        = document.getElementById("chkLatitude");
+const chkLongitude       = document.getElementById("chkLongitude");
+const chkPluie           = document.getElementById("chkPluie");
+const chkVentMoyen       = document.getElementById("chkVentMoyen");
+const chkDirVent         = document.getElementById("chkDirVent");
 
 function estCodePostalValide(code) {
   return /^[0-9]{5}$/.test(code);
@@ -12,8 +17,8 @@ function estCodePostalValide(code) {
 function reinitialiserSelectEtMasquerBloc() {
   communeSelect.innerHTML = '<option disabled selected>Choisissez une ville</option>';
   villeBlock.classList.add("hidden");
+  optionsMeteo.classList.add("hidden");
 }
-
 
 codePostalInput.addEventListener("input", async () => {
   errorElement.textContent = "";
@@ -60,6 +65,8 @@ codePostalInput.addEventListener("input", async () => {
     });
 
     villeBlock.classList.remove("hidden");
+    optionsMeteo.classList.remove("hidden");
+
   } catch (err) {
     console.error("Erreur Geo Gouv :", err);
     errorElement.textContent = "Impossible de récupérer les communes. Réessayez plus tard.";
@@ -67,13 +74,22 @@ codePostalInput.addEventListener("input", async () => {
   }
 });
 
-
 validationButton.addEventListener("click", () => {
   errorElement.textContent = "";
   const selectedInsee = communeSelect.value;
+
   if (!selectedInsee) {
     errorElement.textContent = "Veuillez choisir une ville dans la liste.";
     return;
   }
-  createCard(selectedInsee);
+
+  const optionsAffichage = {
+    showLatitude:   chkLatitude.checked,
+    showLongitude:  chkLongitude.checked,
+    showPluie:      chkPluie.checked,
+    showVentMoyen:  chkVentMoyen.checked,
+    showDirVent:    chkDirVent.checked
+  };
+
+  createCard(selectedInsee, optionsAffichage);
 });

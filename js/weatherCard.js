@@ -1,7 +1,6 @@
 async function fetchMeteoByDay(insee, dayIndex) {
   try {
     const token = "9a33a68d1fdaeff4b6839e46afefa66c6d9db6a496a903d8cab69ad1e1cc8985";
-
     const url = `https://api.meteo-concept.com/api/forecast/daily/${dayIndex}?token=${token}&insee=${insee}`;
     console.log(url)
     const response = await fetch(url);
@@ -19,7 +18,6 @@ async function fetchMeteoByDay(insee, dayIndex) {
 function displayHours(sunHours) {
   return sunHours + (sunHours > 1 ? " heures" : " heure");
 }
-
 
 function createDaysSlider(parentContainer, onChangeCallback) {
   const sliderContainer = document.createElement("div");
@@ -52,8 +50,7 @@ function createDaysSlider(parentContainer, onChangeCallback) {
   parentContainer.appendChild(sliderContainer);
 }
 
-
-async function renderForecast(container, insee, days) {
+async function renderForecast(container, insee, days, options) {
   const cardsHolder = container.querySelector(".cards-holder");
   cardsHolder.innerHTML = "";
 
@@ -75,8 +72,6 @@ async function renderForecast(container, insee, days) {
   }
 
   results.forEach((dataMeteo, index) => {
-
-
     const card = document.createElement("div");
     card.classList.add("weather-card", "card");
 
@@ -96,12 +91,42 @@ async function renderForecast(container, insee, days) {
     sunLine.textContent = `Ensoleillement : ${displayHours(dataMeteo.forecast.sun_hours)}`;
     card.appendChild(sunLine);
 
+    if (options.showLatitude) {
+      const latElt = document.createElement("p");
+      latElt.textContent = `Latitude : ${dataMeteo.city.latitude.toFixed(5)}`;
+      card.appendChild(latElt);
+    }
+
+    if (options.showLongitude) {
+      const lonElt = document.createElement("p");
+      lonElt.textContent = `Longitude : ${dataMeteo.city.longitude.toFixed(5)}`;
+      card.appendChild(lonElt);
+    }
+
+    if (options.showPluie) {
+      const pluieElt = document.createElement("p");
+      pluieElt.textContent = `Pluie (mm) : ${dataMeteo.forecast.rr10} mm`;
+      card.appendChild(pluieElt);
+    }
+
+    if (options.showVentMoyen) {
+      const ventElt = document.createElement("p");
+      ventElt.textContent = `Vent moyen : ${dataMeteo.forecast.wind10m} km/h`;
+      card.appendChild(ventElt);
+    }
+
+    if (options.showDirVent) {
+      const dirElt = document.createElement("p");
+      dirElt.textContent = `Direction du vent : ${dataMeteo.forecast.dirwind10m}°`;
+
+      card.appendChild(dirElt);
+    }
+
     cardsHolder.appendChild(card);
   });
 }
 
-
-function createCard(insee) {
+function createCard(insee, options) {
   const requestSection = document.getElementById("cityForm");
   const weatherSection = document.getElementById("weatherInformation");
 
@@ -113,12 +138,12 @@ function createCard(insee) {
   cardsHolder.classList.add("cards-holder");
 
   createDaysSlider(weatherSection, (selectedDays) => {
-    renderForecast(weatherSection, insee, selectedDays);
+    renderForecast(weatherSection, insee, selectedDays, options);
   });
 
   weatherSection.appendChild(cardsHolder);
 
-  renderForecast(weatherSection, insee, 1);
+  renderForecast(weatherSection, insee, 1, options);
 
   const reloadButton = document.createElement("button");
   reloadButton.textContent = "Nouvelle recherche";
@@ -131,6 +156,12 @@ function createCard(insee) {
     communeSelect.innerHTML = '<option disabled selected>Choisissez une ville</option>';
     document.getElementById("error").textContent = "";
     document.getElementById("villeBlock").classList.add("hidden");
+    document.getElementById("optionsMeteo").classList.add("hidden");
+    document.getElementById("chkLatitude").checked    = false;
+    document.getElementById("chkLongitude").checked   = false;
+    document.getElementById("chkPluie").checked       = false;
+    document.getElementById("chkVentMoyen").checked   = false;
+    document.getElementById("chkDirVent").checked     = false;
   });
   weatherSection.appendChild(reloadButton);
 
