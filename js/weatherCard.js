@@ -1,3 +1,7 @@
+function celsiusToFahrenheit(tempC) {
+  return Math.round((tempC * 9) / 5 + 32);
+}
+
 async function fetchMeteoByDay(insee, dayIndex) {
   try {
     const token = "9a33a68d1fdaeff4b6839e46afefa66c6d9db6a496a903d8cab69ad1e1cc8985";
@@ -50,7 +54,7 @@ function createDaysSlider(parentContainer, onChangeCallback) {
   parentContainer.appendChild(sliderContainer);
 }
 
-async function renderForecast(container, insee, days, options) {
+async function renderForecast(container, insee, days, options, unit) {
   const cardsHolder = container.querySelector(".cards-holder");
   cardsHolder.innerHTML = "";
 
@@ -79,8 +83,18 @@ async function renderForecast(container, insee, days, options) {
     dayTitle.textContent = `Jour ${index + 1} — ${dataMeteo.city.name}`;
     card.appendChild(dayTitle);
 
+    let tmin = dataMeteo.forecast.tmin;
+    let tmax = dataMeteo.forecast.tmax;
+    let tempLabel = "°C";
+
+    if (unit === "F") {
+      tmin = celsiusToFahrenheit(tmin);
+      tmax = celsiusToFahrenheit(tmax);
+      tempLabel = "°F";
+    }
+
     const tempLine = document.createElement("p");
-    tempLine.textContent = `Min : ${dataMeteo.forecast.tmin}°C  •  Max : ${dataMeteo.forecast.tmax}°C`;
+    tempLine.textContent = `Min : ${tmin}${tempLabel}  •  Max : ${tmax}${tempLabel}`;
     card.appendChild(tempLine);
 
     const rainLine = document.createElement("p");
@@ -126,7 +140,7 @@ async function renderForecast(container, insee, days, options) {
   });
 }
 
-function createCard(insee, options) {
+function createCard(insee, options, unit) {
   const requestSection = document.getElementById("cityForm");
   const weatherSection = document.getElementById("weatherInformation");
 
@@ -138,12 +152,12 @@ function createCard(insee, options) {
   cardsHolder.classList.add("cards-holder");
 
   createDaysSlider(weatherSection, (selectedDays) => {
-    renderForecast(weatherSection, insee, selectedDays, options);
+    renderForecast(weatherSection, insee, selectedDays, options, unit);
   });
 
   weatherSection.appendChild(cardsHolder);
 
-  renderForecast(weatherSection, insee, 1, options);
+  renderForecast(weatherSection, insee, 1, options, unit);
 
   const reloadButton = document.createElement("button");
   reloadButton.textContent = "Nouvelle recherche";
@@ -157,6 +171,7 @@ function createCard(insee, options) {
     document.getElementById("error").textContent = "";
     document.getElementById("villeBlock").classList.add("hidden");
     document.getElementById("optionsMeteo").classList.add("hidden");
+    document.getElementById("unitBlock").classList.add("hidden");
     document.getElementById("chkLatitude").checked    = false;
     document.getElementById("chkLongitude").checked   = false;
     document.getElementById("chkPluie").checked       = false;

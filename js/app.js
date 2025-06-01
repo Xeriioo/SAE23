@@ -9,6 +9,8 @@ const chkLongitude       = document.getElementById("chkLongitude");
 const chkPluie           = document.getElementById("chkPluie");
 const chkVentMoyen       = document.getElementById("chkVentMoyen");
 const chkDirVent         = document.getElementById("chkDirVent");
+const unitBlock          = document.getElementById("unitBlock");
+const unitSelect         = document.getElementById("unitSelect");
 
 function estCodePostalValide(code) {
   return /^[0-9]{5}$/.test(code);
@@ -18,6 +20,7 @@ function reinitialiserSelectEtMasquerBloc() {
   communeSelect.innerHTML = '<option disabled selected>Choisissez une ville</option>';
   villeBlock.classList.add("hidden");
   optionsMeteo.classList.add("hidden");
+  unitBlock.classList.add("hidden");
 }
 
 codePostalInput.addEventListener("input", async () => {
@@ -66,6 +69,7 @@ codePostalInput.addEventListener("input", async () => {
 
     villeBlock.classList.remove("hidden");
     optionsMeteo.classList.remove("hidden");
+    unitBlock.classList.remove("hidden");
 
   } catch (err) {
     console.error("Erreur Geo Gouv :", err);
@@ -91,5 +95,7 @@ validationButton.addEventListener("click", () => {
     showDirVent:    chkDirVent.checked
   };
 
-  createCard(selectedInsee, optionsAffichage);
+  const unit = unitSelect ? unitSelect.value : "C";
+  createCard(selectedInsee, optionsAffichage, unit);
+
 });
