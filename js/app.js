@@ -99,3 +99,35 @@ validationButton.addEventListener("click", () => {
   createCard(selectedInsee, optionsAffichage, unit);
 
 });
+
+function initTheme() {
+  const storedTheme = localStorage.getItem("theme");
+  const checkbox = document.getElementById("themeCheckbox");
+  if (storedTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    if (checkbox) checkbox.checked = true;
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    if (checkbox) checkbox.checked = false;
+  }
+}
+
+function toggleTheme() {
+  const checkbox = document.getElementById("themeCheckbox");
+  if (!checkbox) return;
+  if (checkbox.checked) {
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    localStorage.setItem("theme", "light");
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  const themeCheckbox = document.getElementById("themeCheckbox");
+  if (themeCheckbox) {
+    themeCheckbox.addEventListener("change", toggleTheme);
+  }
+});
