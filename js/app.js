@@ -13,7 +13,10 @@ const unitBlock          = document.getElementById("unitBlock");
 const unitSelect         = document.getElementById("unitSelect");
 
 function estCodePostalValide(code) {
-  return /^[0-9]{5}$/.test(code);
+  const cp = code.trim();
+  console.log(cp);
+  console.log(/^\d{5}$/.test(cp));
+  return /^\d{5}$/.test(cp);
 }
 
 function reinitialiserSelectEtMasquerBloc() {
@@ -28,6 +31,7 @@ codePostalInput.addEventListener("input", async () => {
   const codePostal = codePostalInput.value.trim();
 
   if (codePostal.length < 5) {
+    errorElement.textContent = "Le code postal doit contenir exactement 5 chiffres.";
     reinitialiserSelectEtMasquerBloc();
     return;
   }
@@ -59,7 +63,7 @@ codePostalInput.addEventListener("input", async () => {
       }
     });
 
-    communeSelect.innerHTML = '<option disabled selected>Choisissez une ville</option>';
+    communeSelect.innerHTML = '<option disabled selected value="">Choisissez une ville</option>';
     communesUniquesMap.forEach((nomVille, insee) => {
       const option = document.createElement("option");
       option.value = insee;
@@ -81,8 +85,15 @@ codePostalInput.addEventListener("input", async () => {
 validationButton.addEventListener("click", () => {
   errorElement.textContent = "";
   const selectedInsee = communeSelect.value;
+  const codePostal = codePostalInput.value;
 
-  if (!selectedInsee) {
+  if (!estCodePostalValide(codePostal)) {
+    errorElement.textContent = "Le code postal doit contenir exactement 5 chiffres.";
+    reinitialiserSelectEtMasquerBloc();
+    return;
+  }
+
+    if (!selectedInsee) {
     errorElement.textContent = "Veuillez choisir une ville dans la liste.";
     return;
   }

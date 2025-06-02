@@ -42,13 +42,16 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  overflow-y: auto;
 }
 
 .container {
   width: 100%;
   max-width: 420px;
   padding: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .card {
