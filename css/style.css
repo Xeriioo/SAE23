@@ -395,6 +395,32 @@ input:checked + .slider::before {
   border-radius: 50%;
 }
 
+.weather-card {
+  position: relative;
+}
+
+.weather-card .weather-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;         
+  transform: translateY(-50%);
+  width: auto;         
+  height: auto;        
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;         
+  background: transparent;
+  border: none;
+}
+
+.weather-card .weather-icon img {
+  width: 32px;         
+  height: 32px;
+  object-fit: contain;
+}
+
+
 @media (max-width: 360px) {
   .card {
     padding: 1rem;
