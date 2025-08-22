@@ -64,6 +64,18 @@
       </section>
 
       <section id="weatherInformation" class="card hidden"></section>
+      
+      <section id="todoSection" class="card">
+        <h2>📝 Mes Tâches</h2>
+        <div class="todo-input-container">
+          <input type="text" id="todoInput" placeholder="Ajouter une nouvelle tâche..." maxlength="100">
+          <button id="addTodoButton">Ajouter</button>
+        </div>
+        <ul id="todoList" class="todo-list"></ul>
+        <div class="todo-stats">
+          <span id="todoCount">0 tâche(s)</span>
+        </div>
+      </section>
     </div>
 
     <div id="themeToggle">
@@ -77,5 +89,6 @@
 
     <script src="js/app.js"></script>
     <script src="js/weatherCard.js"></script>
+    <script src="js/todo.js"></script>
   </body>
 </html>
